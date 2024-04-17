@@ -1,31 +1,40 @@
 "use client";
 import React, { FC, FormEvent, useState } from "react";
-import { TextField, Button, Grid, Box, Card } from "@mui/material";
+import { TextField, Grid, Box, Card } from "@mui/material";
 import { H4 } from "@/src/components/typography";
 import { StyledContainer } from "./styles";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const LoginForm: FC = () => {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
-    const formData = {
-      username: form.email,
-      password: form.password,
-      redirect: false,
-    };
+    try {
+      const formData = {
+        username: form.email,
+        password: form.password,
+        redirect: false,
+      };
 
-    const response = await signIn("credentials", formData);
+      const response = await signIn("credentials", formData);
 
-    if (!response?.error) {
-      router.push("/");
-      router.refresh();
-    } else {
-      toast.error("Invalid email or password");
+      if (!response?.error) {
+        router.push("/");
+        router.refresh();
+      } else {
+        toast.error("Invalid email or password");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,15 +74,11 @@ const LoginForm: FC = () => {
           </Grid>
           <Grid item xs={12} mt={2}>
             <form onSubmit={handleSubmit}>
-              <Button
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    alert("Enter key pressed");
-                  }
-                }}
+              <LoadingButton
                 type="submit"
                 color="primary"
                 variant="contained"
+                loading={loading}
                 fullWidth
                 sx={{
                   backgroundColor: "#000",
@@ -84,7 +89,7 @@ const LoginForm: FC = () => {
                 }}
               >
                 Sign In
-              </Button>
+              </LoadingButton>
             </form>
           </Grid>
         </Grid>
