@@ -5,7 +5,7 @@ export interface Props {
 }
 
 export const initialState: Props = {
-  theme: true, // true for light theme and false for dark theme
+  theme: false, // true for light theme and false for dark theme
 };
 
 export const ThemeSlice = createSlice({

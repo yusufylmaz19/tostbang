@@ -7,8 +7,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import { H5 } from "../typography";
+import { Analytics } from "@mui/icons-material";
 
 interface Props {
   drawerWidth: number;
@@ -36,11 +36,11 @@ export default function SideBar({
         TostBang
       </H5>
       <List>
-        {["Home", "Profile"].map((text, index) => (
+        {["Home", "Statistics"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <InboxIcon /> : <Analytics />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>

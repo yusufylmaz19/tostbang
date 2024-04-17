@@ -10,6 +10,5 @@ interface Props {
 export default async function ResponsiveDrawer(props: Props) {
   const data = await getServerSession(options);
   const username = data?.user?.role;
-  console.log(data);
   return <HomeLayout username={username}>{props.children}</HomeLayout>;
 }

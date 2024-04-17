@@ -88,7 +88,14 @@ export default function Navbar({
               onClick={handleClick}
               sx={{
                 display: { sm: "flex" },
+                gap: "10px",
                 textTransform: "none",
+                paddingInline: "16px",
+                borderRadius: "8px",
+                backgroundColor: "rgba(25, 118, 210, 0.04) ",
+                ":hover": {
+                  backgroundColor: "rgba(25, 118, 210, 0.1) ",
+                },
               }}
             >
               <H6>{username}</H6>
