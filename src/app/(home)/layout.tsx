@@ -1,8 +1,8 @@
 import ThemeRegistry from "@/src/theme/ThemeRegistry";
 import StoreProvider from "../../lib/storeProvider";
-import ResponsiveDrawer from "../../components/navigation/layout";
 import AuthProvider from "../../components/authProvider";
 import ToastProvider from "@/src/lib/toastProvider";
+import ResponsiveDrawer from "@/src/components/layout/layout";
 
 export const metadata = {
   title: "TostBang",

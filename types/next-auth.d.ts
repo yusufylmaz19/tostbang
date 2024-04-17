@@ -1,21 +1,24 @@
-import { Session } from "next-auth";
-import { JWT } from "next-auth/jwt";
+// Ref: https://next-auth.js.org/getting-started/typescript#module-augmentation
+
+import { DefaultSession, DefaultUser } from "next-auth"
+import { JWT, DefaultJWT } from "next-auth/jwt"
 
 declare module "next-auth" {
     interface Session {
-        id: string;
-        role: string;
+        user: {
+            id: string,
+            role: string,
+            name: string,
+        } & DefaultSession
     }
 
-    interface User {
-        id: string;
-        role: string;
+    interface User extends DefaultUser {
+        role: string,
     }
 }
 
 declare module "next-auth/jwt" {
-    interface JWT {
-        id: string;
-        role: string;
+    interface JWT extends DefaultJWT {
+        role: string,
     }
 }

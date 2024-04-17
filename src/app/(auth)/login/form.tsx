@@ -14,7 +14,7 @@ const LoginForm: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
-      email: form.email,
+      username: form.email,
       password: form.password,
       redirect: false,
     };
