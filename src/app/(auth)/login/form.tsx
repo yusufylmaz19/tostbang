@@ -1,10 +1,11 @@
 "use client";
 import React, { FC, FormEvent, useState } from "react";
-import { TextField, Button, Grid } from "@mui/material";
+import { TextField, Button, Grid, Box, Card } from "@mui/material";
 import { H4 } from "@/src/components/typography";
 import { StyledContainer } from "./styles";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { toast } from "react-toastify";
 
 const LoginForm: FC = () => {
   const router = useRouter();
@@ -23,20 +24,30 @@ const LoginForm: FC = () => {
     if (!response?.error) {
       router.push("/");
       router.refresh();
+    } else {
+      toast.error("Invalid email or password");
     }
   };
 
   return (
     <StyledContainer>
-      <div>
-        <H4>Login</H4>
+      <Card
+        sx={{
+          borderRadius: "8px",
+          padding: "120px 40px",
+          height: "200px",
+        }}
+      >
+        <Box mt={-6} mb={5}>
+          <H4 textAlign="center">Customer Login</H4>
+        </Box>
         <Grid container spacing={3}>
           <Grid item xs={12} mt={2}>
             <TextField
               name="email"
               label="Email"
-              variant="outlined"
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              variant="standard"
+              onChange={(e: any) => setForm({ ...form, email: e.target.value })}
               fullWidth
             />
           </Grid>
@@ -44,26 +55,40 @@ const LoginForm: FC = () => {
             <TextField
               name="password"
               label="Password"
-              variant="outlined"
+              variant="standard"
               type="password"
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              onChange={(e: any) =>
+                setForm({ ...form, password: e.target.value })
+              }
               fullWidth
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} mt={2}>
             <form onSubmit={handleSubmit}>
               <Button
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    alert("Enter key pressed");
+                  }
+                }}
                 type="submit"
                 color="primary"
-                variant="outlined"
+                variant="contained"
                 fullWidth
+                sx={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  "&:hover": {
+                    backgroundColor: "#333",
+                  },
+                }}
               >
                 Sign In
               </Button>
             </form>
           </Grid>
         </Grid>
-      </div>
+      </Card>
     </StyledContainer>
   );
 };

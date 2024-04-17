@@ -2838,6 +2838,7 @@ __metadata:
     react-i18next: "npm:^14.1.0"
     react-icons: "npm:^5.1.0"
     react-redux: "npm:^9.1.1"
+    react-toastify: "npm:^10.0.5"
     styled-components: "npm:^6.1.8"
     typescript: "npm:^5"
   languageName: unknown
@@ -3394,6 +3395,18 @@ __metadata:
     redux:
       optional: true
   checksum: 40ccdc8d48aefeed02c025f46e4a2e6641a2996fe985feb70d25feaaf8f101f6ef937cd1420909cad4c8869a8c79323ee071f5b090b011b950e5ae09100f5767
+  languageName: node
+  linkType: hard
+
+"react-toastify@npm:^10.0.5":
+  version: 10.0.5
+  resolution: "react-toastify@npm:10.0.5"
+  dependencies:
+    clsx: "npm:^2.1.0"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 66c68ec3d6c017d9f32652d73bb925224921c6a80b629b9d481430d5b4fd504abb7a99995a64b9aef0fc31326c74f3cbe088b3287b978dd0c355079c4bbf4158
   languageName: node
   linkType: hard
 

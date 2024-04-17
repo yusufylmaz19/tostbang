@@ -2,6 +2,7 @@ import ThemeRegistry from "@/src/theme/ThemeRegistry";
 import StoreProvider from "../../lib/storeProvider";
 import ResponsiveDrawer from "../../components/navigation/layout";
 import AuthProvider from "../../components/authProvider";
+import ToastProvider from "@/src/lib/toastProvider";
 
 export const metadata = {
   title: "TostBang",
@@ -19,7 +20,9 @@ export default function RootLayout({
         <html lang="en">
           <body>
             <AuthProvider>
-              <ResponsiveDrawer>{children}</ResponsiveDrawer>
+              <ResponsiveDrawer>
+                <ToastProvider>{children}</ToastProvider>
+              </ResponsiveDrawer>
             </AuthProvider>
           </body>
         </html>

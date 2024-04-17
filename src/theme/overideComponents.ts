@@ -1,4 +1,4 @@
-import { Theme, Typography } from "@mui/material";
+import { Theme } from "@mui/material";
 
 export const components = (theme: Theme): any => {
     return {
@@ -22,5 +22,12 @@ export const components = (theme: Theme): any => {
                 },
             },
         },
+        // MuiButton: {
+        //     styleOverrides: {
+        //         root: {
+        //             fontSize: '10rem',
+        //         },
+        //     },
+        // },
     }
-};
+}

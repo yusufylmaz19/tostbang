@@ -46,7 +46,7 @@ export default function RootStyleRegistry({
       }
     }
     return [
-      ...globalStyles.map((style, i) => (
+      ...globalStyles.map((style) => (
         <style
           key={style.name}
           data-emotion={`${cache.key}-global`}
