@@ -13,17 +13,23 @@ const secondary = {
     contrastText: '#fff',
 };
 
+
 const palette = {
     primary,
     secondary,
 };
 
 export const lightPalette = {
-    mode: "light",
     ...palette,
+    mode: "light",
+    background: { default: "#fefefe", paper: "#fefefe" },
+    fontColor: { primary: "#000000DE", secondary: "#000" }
 };
 
+
 export const darkPalette = {
-    mode: "dark",
     ...palette,
+    mode: "dark",
+    background: { default: "#161a22", paper: "#161a22" },
+    fontColor: { primary: "#fff", secondary: "#e3e3e3" }
 };

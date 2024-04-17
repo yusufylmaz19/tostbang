@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Roboto } from "next/font/google";
 import { useAppSelector } from "../lib/hooks";
 import themesOptions from "./themeOptions";
 import RootStyleRegistry from "./EmotionCache";
+import { components } from "./overideComponents";
+import merge from "lodash/merge";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -32,7 +34,11 @@ export default function ThemeRegistry({
     },
   };
 
-  const themes = createTheme(themeOptions);
+  
+  const mergedThemeOptions = merge({}, themeOptions);
+  
+  const themes = createTheme(mergedThemeOptions);
+  themes.components = components(themes);
 
   return (
     <RootStyleRegistry>
