@@ -106,8 +106,10 @@ export default function ProductCard({
           <FlexRow justifyContent="space-between" alignItems="center">
             <p>{product.description}</p>
             <p>
-              {shoppingList.find((item) => item.id === product.id)
-                ?.shoppingCount || 0}
+              {!idAdmin
+                ? shoppingList.find((item) => item.id === product.id)
+                    ?.shoppingCount || 0
+                : product.count}
             </p>
           </FlexRow>
           <FlexRow justifyContent="space-between" alignItems="center">

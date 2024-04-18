@@ -77,6 +77,7 @@ export default function NewProduct({
       }
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setProductList(productForm);
+      handleClose();
     } catch (e) {
       toast.error("Something went wrong");
     } finally {
@@ -88,7 +89,6 @@ export default function NewProduct({
         price: 0,
       });
       setLoading(false);
-      handleClose();
     }
   };
 

@@ -35,14 +35,18 @@ export default function ShoppingModal({
     setLoading(true);
     // should be replaced with actual api call
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      toast.success("Your order has been taken");
-      setShoppingList([]);
+      if (shoppingList.length !== 0) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        toast.success("Your order has been taken");
+        setShoppingList([]);
+        handleClose();
+      } else {
+        toast.warning("Please add product to your shopping list");
+      }
     } catch (e) {
       toast.error("Your order has been taken");
     } finally {
       setLoading(false);
-      handleClose();
     }
   };
 
