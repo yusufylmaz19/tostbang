@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Grid, styled } from "@mui/material";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import ProductCard from "./productCard";
 import { motion } from "framer-motion";
 import FlexColumn from "../flex/flexColumn";
@@ -22,6 +22,7 @@ const StyledButton = styled(Button)({
 export default function ProductList({ products }: { products: any[] }) {
   const [searchValue, setSearchValue] = useState("");
   const [open, setOpen] = useState(false);
+  const [shoppingList, setShoppingList] = useState([] as any[]);
 
   const setProductList = (product: any) => {
     const newProducts = {
@@ -70,6 +71,17 @@ export default function ProductList({ products }: { products: any[] }) {
             Add new Product
           </StyledButton>
         )}
+        {!isAdmin && (
+          <StyledButton
+            sx={{
+              width: { xs: "100%", md: "200px" },
+            }}
+            variant="outlined"
+            onClick={() => {}}
+          >
+            {`Buy Products (${shoppingList.length}) `}
+          </StyledButton>
+        )}
       </FlexRow>
       <Grid container spacing={3}>
         {filteredProducts.map((product: any) => (
@@ -78,7 +90,13 @@ export default function ProductList({ products }: { products: any[] }) {
               whileHover={{ scale: 1.07 }}
               transition={{ ease: "easeOut", duration: 0.3 }}
             >
-              <ProductCard product={product} />
+              <ProductCard
+                product={product}
+                idAdmin={isAdmin}
+                shoppingList={shoppingList}
+                setShoppingList={setShoppingList}
+                setProductList={setProductList}
+              />
             </motion.div>
           </Grid>
         ))}

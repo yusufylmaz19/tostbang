@@ -27,16 +27,53 @@ const StyledButton = styled(Button)({
   fontSize: "24px",
 });
 
-export default function ProductCard({ product }: { product: any }) {
+export default function ProductCard({
+  product,
+  idAdmin,
+  shoppingList,
+  setShoppingList,
+}: {
+  product: any;
+  idAdmin: boolean;
+  shoppingList: any[];
+  setShoppingList: (shoppingList: any) => void;
+  setProductList: (product: any) => void;
+}) {
   const [productCount, setProductCount] = React.useState(0);
 
   const handleDecrement = () => {
     if (productCount > 0) {
       setProductCount(productCount - 1);
+      const existingProductIndex = shoppingList.findIndex(
+        (item) => item.id === product.id
+      );
+      if (existingProductIndex !== -1) {
+        if (shoppingList[existingProductIndex].shoppingCount > 1) {
+          const updatedShoppingList = [...shoppingList];
+          updatedShoppingList[existingProductIndex].shoppingCount -= 1;
+          setShoppingList(updatedShoppingList);
+        } else {
+          const updatedShoppingList = shoppingList.filter(
+            (item) => item.id !== product.id
+          );
+          setShoppingList(updatedShoppingList);
+        }
+      }
     }
   };
 
   const handleIncrement = () => {
+    const existingProductIndex = shoppingList.findIndex(
+      (item) => item.id === product.id
+    );
+    if (existingProductIndex !== -1) {
+      const updatedShoppingList = [...shoppingList];
+      updatedShoppingList[existingProductIndex].shoppingCount += 1;
+      setShoppingList(updatedShoppingList);
+    } else {
+      setShoppingList([...shoppingList, { ...product, shoppingCount: 1 }]);
+    }
+
     setProductCount(productCount + 1);
   };
 
@@ -117,20 +154,22 @@ export default function ProductCard({ product }: { product: any }) {
           </FlexRow>
           <FlexRow justifyContent="space-between" alignItems="center">
             <p>{product.price}$</p>
-            <FlexRow gap={2}>
-              <StyledButton
-                disabled={product.count === 0}
-                onClick={handleDecrement}
-              >
-                -
-              </StyledButton>
-              <StyledButton
-                disabled={product.count === 0}
-                onClick={handleIncrement}
-              >
-                +
-              </StyledButton>
-            </FlexRow>
+            {!idAdmin && (
+              <FlexRow gap={2}>
+                <StyledButton
+                  disabled={product.count === 0}
+                  onClick={handleDecrement}
+                >
+                  -
+                </StyledButton>
+                <StyledButton
+                  disabled={product.count === 0}
+                  onClick={handleIncrement}
+                >
+                  +
+                </StyledButton>
+              </FlexRow>
+            )}
           </FlexRow>
         </Box>
       </FlexColumn>
