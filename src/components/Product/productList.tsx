@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Grid, styled } from "@mui/material";
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProductCard from "./productCard";
 import { motion } from "framer-motion";
 import FlexColumn from "../flex/flexColumn";
@@ -95,7 +95,6 @@ export default function ProductList({ products }: { products: any[] }) {
                 idAdmin={isAdmin}
                 shoppingList={shoppingList}
                 setShoppingList={setShoppingList}
-                setProductList={setProductList}
               />
             </motion.div>
           </Grid>

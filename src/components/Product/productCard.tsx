@@ -37,7 +37,6 @@ export default function ProductCard({
   idAdmin: boolean;
   shoppingList: any[];
   setShoppingList: (shoppingList: any) => void;
-  setProductList: (product: any) => void;
 }) {
   const [productCount, setProductCount] = React.useState(0);
 
