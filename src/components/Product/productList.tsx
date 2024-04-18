@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, styled } from "@mui/material";
 import React, { useState } from "react";
 import ProductCard from "./productCard";
 import { motion } from "framer-motion";
@@ -8,25 +8,26 @@ import FlexColumn from "../flex/flexColumn";
 import FlexRow from "../flex/flexRow";
 import { InputBase } from "@mui/material";
 import useSessionHook from "@/src/lib/useSessionHook";
+import NewProduct from "./newProduct";
 
-const StyledButton = ({ children }: { children: string }) => (
-  <Button
-    variant="outlined"
-    sx={{
-      borderColor: "#7EA1FF",
-      color: "#7EA1FF",
-      borderRadius: "16px",
-      padding: "16px",
-      fontSize: "17px",
-      width: { sm: "100%", md: "200px" },
-    }}
-  >
-    {children}
-  </Button>
-);
+const StyledButton = styled(Button)({
+  borderColor: "#7EA1FF",
+  color: "#7EA1FF",
+  borderRadius: "16px",
+  padding: "16px",
+  fontSize: "17px",
+});
 
-export default function ProductList({ products }: { products: any }) {
+export default function ProductList({ products }: { products: any[] }) {
   const [searchValue, setSearchValue] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const filteredProducts = products.filter((product: any) =>
     product.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -46,7 +47,17 @@ export default function ProductList({ products }: { products: any }) {
             width: { sm: "100%", md: "400px" },
           }}
         />
-        {isAdmin && <StyledButton>Add new Product</StyledButton>}
+        {isAdmin && (
+          <StyledButton
+            sx={{
+              width: { sm: "100%", md: "200px" },
+            }}
+            variant="outlined"
+            onClick={handleOpen}
+          >
+            Add new Product
+          </StyledButton>
+        )}
       </FlexRow>
       <Grid container spacing={3}>
         {filteredProducts.map((product: any) => (
@@ -60,6 +71,7 @@ export default function ProductList({ products }: { products: any }) {
           </Grid>
         ))}
       </Grid>
+      <NewProduct open={open} handleClose={handleClose} />
     </FlexColumn>
   );
 }

@@ -22,12 +22,14 @@ export const components = (theme: Theme): any => {
                 },
             },
         },
-        // MuiButton: {
-        //     styleOverrides: {
-        //         root: {
-        //             fontSize: '10rem',
-        //         },
-        //     },
-        // },
+        MuiDialog: {
+            styleOverrides: {
+                root: {
+                    "& .MuiDialog-paper": {
+                        borderRadius: 8,
+                    },
+                },
+            },
+        },
     }
 }
