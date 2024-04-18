@@ -25,6 +25,7 @@ export default function ProductList({ products }: { products: any[] }) {
   const [newProductModal, setNewProductModal] = useState(false);
   const [shoppingModal, setShoppingModal] = useState(false);
   const [shoppingList, setShoppingList] = useState([] as any[]);
+  const { isAdmin } = useSessionHook();
 
   const setProductList = (product: any) => {
     const newProducts = {
@@ -41,15 +42,10 @@ export default function ProductList({ products }: { products: any[] }) {
     setNewProductModal(false);
     setShoppingModal(false);
   };
-  const handleOpen = () => {
-    setNewProductModal(true);
-    setShoppingModal(true);
-  };
 
   const filteredProducts = products.filter((product: any) =>
     product.title.toLowerCase().includes(searchValue.toLowerCase())
   );
-  const { isAdmin } = useSessionHook();
 
   return (
     <FlexColumn gap={3}>
@@ -70,7 +66,7 @@ export default function ProductList({ products }: { products: any[] }) {
               width: { xs: "100%", md: "200px" },
             }}
             variant="outlined"
-            onClick={handleOpen}
+            onClick={() => setNewProductModal(true)}
           >
             Add new Product
           </StyledButton>
@@ -104,17 +100,21 @@ export default function ProductList({ products }: { products: any[] }) {
           </Grid>
         ))}
       </Grid>
-      <NewProduct
-        open={newProductModal}
-        handleClose={handleClose}
-        setProductList={setProductList}
-      />
-      <ShoppingModal
-        open={shoppingModal}
-        handleClose={handleClose}
-        shoppingList={shoppingList}
-        setShoppingList={setShoppingList}
-      />
+      {isAdmin && (
+        <NewProduct
+          open={newProductModal}
+          handleClose={handleClose}
+          setProductList={setProductList}
+        />
+      )}
+      {!isAdmin && (
+        <ShoppingModal
+          open={shoppingModal}
+          handleClose={handleClose}
+          shoppingList={shoppingList}
+          setShoppingList={setShoppingList}
+        />
+      )}
     </FlexColumn>
   );
 }
