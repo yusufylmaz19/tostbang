@@ -1,12 +1,14 @@
 "use client";
 
-import { Box, Button, Card, Divider, styled } from "@mui/material";
+import { Box, Card, Divider } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import shoe from "../../assets/shoe.png";
 import FlexColumn from "../flex/flexColumn";
 import FlexRow from "../flex/flexRow";
 import { Colors } from "@/src/global";
+import { StyledButton } from "./styles";
+import { handleDecrement, handleIncrement } from "@/src/helpers";
 
 const StyledDot = ({ color }: { color: string }) => (
   <Box
@@ -19,14 +21,6 @@ const StyledDot = ({ color }: { color: string }) => (
   ></Box>
 );
 
-const StyledButton = styled(Button)({
-  borderColor: "#7EA1FF",
-  color: "#7EA1FF",
-  borderRadius: "16px",
-  padding: "0px",
-  fontSize: "24px",
-});
-
 export default function ProductCard({
   product,
   idAdmin,
@@ -38,44 +32,6 @@ export default function ProductCard({
   shoppingList: any[];
   setShoppingList: (shoppingList: any) => void;
 }) {
-  const [productCount, setProductCount] = React.useState(0);
-
-  const handleDecrement = () => {
-    if (productCount > 0) {
-      setProductCount(productCount - 1);
-      const existingProductIndex = shoppingList.findIndex(
-        (item) => item.id === product.id
-      );
-      if (existingProductIndex !== -1) {
-        if (shoppingList[existingProductIndex].shoppingCount > 1) {
-          const updatedShoppingList = [...shoppingList];
-          updatedShoppingList[existingProductIndex].shoppingCount -= 1;
-          setShoppingList(updatedShoppingList);
-        } else {
-          const updatedShoppingList = shoppingList.filter(
-            (item) => item.id !== product.id
-          );
-          setShoppingList(updatedShoppingList);
-        }
-      }
-    }
-  };
-
-  const handleIncrement = () => {
-    const existingProductIndex = shoppingList.findIndex(
-      (item) => item.id === product.id
-    );
-    if (existingProductIndex !== -1) {
-      const updatedShoppingList = [...shoppingList];
-      updatedShoppingList[existingProductIndex].shoppingCount += 1;
-      setShoppingList(updatedShoppingList);
-    } else {
-      setShoppingList([...shoppingList, { ...product, shoppingCount: 1 }]);
-    }
-
-    setProductCount(productCount + 1);
-  };
-
   return (
     <Card
       sx={{
@@ -149,7 +105,10 @@ export default function ProductCard({
           <h4>{product.title}</h4>
           <FlexRow justifyContent="space-between" alignItems="center">
             <p>{product.description}</p>
-            <p>{productCount}</p>
+            <p>
+              {shoppingList.find((item) => item.id === product.id)
+                ?.shoppingCount || 0}
+            </p>
           </FlexRow>
           <FlexRow justifyContent="space-between" alignItems="center">
             <p>{product.price}$</p>
@@ -157,13 +116,17 @@ export default function ProductCard({
               <FlexRow gap={2}>
                 <StyledButton
                   disabled={product.count === 0}
-                  onClick={handleDecrement}
+                  onClick={() => {
+                    handleDecrement(shoppingList, product, setShoppingList);
+                  }}
                 >
                   -
                 </StyledButton>
                 <StyledButton
                   disabled={product.count === 0}
-                  onClick={handleIncrement}
+                  onClick={() => {
+                    handleIncrement(shoppingList, product, setShoppingList);
+                  }}
                 >
                   +
                 </StyledButton>

@@ -10,6 +10,7 @@ import { InputBase } from "@mui/material";
 import useSessionHook from "@/src/lib/useSessionHook";
 import NewProduct from "./newProduct";
 import { ColorNames } from "@/src/global";
+import ShoppingModal from "./shoppingModal";
 
 const StyledButton = styled(Button)({
   borderColor: "#7EA1FF",
@@ -21,7 +22,8 @@ const StyledButton = styled(Button)({
 
 export default function ProductList({ products }: { products: any[] }) {
   const [searchValue, setSearchValue] = useState("");
-  const [open, setOpen] = useState(false);
+  const [newProductModal, setNewProductModal] = useState(false);
+  const [shoppingModal, setShoppingModal] = useState(false);
   const [shoppingList, setShoppingList] = useState([] as any[]);
 
   const setProductList = (product: any) => {
@@ -36,10 +38,12 @@ export default function ProductList({ products }: { products: any[] }) {
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setNewProductModal(false);
+    setShoppingModal(false);
   };
   const handleOpen = () => {
-    setOpen(true);
+    setNewProductModal(true);
+    setShoppingModal(true);
   };
 
   const filteredProducts = products.filter((product: any) =>
@@ -77,9 +81,9 @@ export default function ProductList({ products }: { products: any[] }) {
               width: { xs: "100%", md: "200px" },
             }}
             variant="outlined"
-            onClick={() => {}}
+            onClick={() => setShoppingModal(true)}
           >
-            {`Buy Products (${shoppingList.length}) `}
+            {`Shopping List (${shoppingList.length}) `}
           </StyledButton>
         )}
       </FlexRow>
@@ -101,9 +105,15 @@ export default function ProductList({ products }: { products: any[] }) {
         ))}
       </Grid>
       <NewProduct
-        open={open}
+        open={newProductModal}
         handleClose={handleClose}
         setProductList={setProductList}
+      />
+      <ShoppingModal
+        open={shoppingModal}
+        handleClose={handleClose}
+        shoppingList={shoppingList}
+        setShoppingList={setShoppingList}
       />
     </FlexColumn>
   );
