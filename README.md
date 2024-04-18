@@ -1,3 +1,16 @@
+## Giriş yapabileceğiniz userlar(username, password)
+- admin 1 
+- user 1
+ 
+## Eğer admin kullanıcısı ile giriş yaparsanız
+
+- Ürün listesi sayfasını ve bu sayfada yeni ürün ekleme butonunu göreceksiniz.
+ 
+## Eğer user kullanıcısı ile giriş yaparsanız
+
+- Ürün listesi sayfasını ve  bu sayfada sepete ekleme butonunu ve sipariş etme butonlarını göreceksiniz.
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
