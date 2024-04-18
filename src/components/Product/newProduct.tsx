@@ -137,7 +137,7 @@ export default function NewProduct({
               }}
             >
               <FormControl defaultValue="Count" required fullWidth>
-                <div>Prodcut Count</div>
+                <div>Product Count</div>
                 <StyledInputBase
                   name="count"
                   value={productForm.count}
@@ -150,7 +150,7 @@ export default function NewProduct({
                 <FormHelperText />
               </FormControl>
               <FormControl defaultValue="Price" required fullWidth>
-                <div>Prodcut Price</div>
+                <div>Product Price</div>
                 <StyledInputBase
                   name="price"
                   value={productForm.price}
