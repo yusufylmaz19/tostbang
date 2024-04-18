@@ -24,9 +24,9 @@ export default async function RootLayout({
         <html lang="en">
           <body>
             <AuthProvider session={data}>
-              <ResponsiveDrawer>
-                <ToastProvider>{children}</ToastProvider>
-              </ResponsiveDrawer>
+              <ToastProvider>
+                <ResponsiveDrawer>{children}</ResponsiveDrawer>
+              </ToastProvider>
             </AuthProvider>
           </body>
         </html>

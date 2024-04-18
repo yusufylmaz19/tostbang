@@ -9,6 +9,7 @@ import FlexRow from "../flex/flexRow";
 import { InputBase } from "@mui/material";
 import useSessionHook from "@/src/lib/useSessionHook";
 import NewProduct from "./newProduct";
+import { ColorNames } from "@/src/global";
 
 const StyledButton = styled(Button)({
   borderColor: "#7EA1FF",
@@ -21,6 +22,17 @@ const StyledButton = styled(Button)({
 export default function ProductList({ products }: { products: any[] }) {
   const [searchValue, setSearchValue] = useState("");
   const [open, setOpen] = useState(false);
+
+  const setProductList = (product: any) => {
+    const newProducts = {
+      ...product,
+      id: Math.random().toString(),
+      colors: product.colors.map((color: any) =>
+        ColorNames.findIndex((colorName) => colorName === color)
+      ),
+    };
+    products.push(newProducts);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -44,13 +56,13 @@ export default function ProductList({ products }: { products: any[] }) {
             border: "1px solid #e3e3e3",
             borderRadius: "16px",
             padding: "12px",
-            width: { sm: "100%", md: "400px" },
+            width: { xs: "100%", md: "400px" },
           }}
         />
         {isAdmin && (
           <StyledButton
             sx={{
-              width: { sm: "100%", md: "200px" },
+              width: { xs: "100%", md: "200px" },
             }}
             variant="outlined"
             onClick={handleOpen}
@@ -71,7 +83,11 @@ export default function ProductList({ products }: { products: any[] }) {
           </Grid>
         ))}
       </Grid>
-      <NewProduct open={open} handleClose={handleClose} />
+      <NewProduct
+        open={open}
+        handleClose={handleClose}
+        setProductList={setProductList}
+      />
     </FlexColumn>
   );
 }

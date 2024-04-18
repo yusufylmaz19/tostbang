@@ -6,6 +6,7 @@ import React from "react";
 import shoe from "../../assets/shoe.png";
 import FlexColumn from "../flex/flexColumn";
 import FlexRow from "../flex/flexRow";
+import { Colors } from "@/src/global";
 
 const StyledDot = ({ color }: { color: string }) => (
   <Box
@@ -26,17 +27,6 @@ const StyledButton = styled(Button)({
   fontSize: "24px",
 });
 
-const colors = [
-  "#D20062",
-  "#C4E4FF",
-  "#8DECB4",
-  "#FFF5E0",
-  "#102C57",
-  "#FFC94A",
-  "#795458",
-  "#8576FF",
-];
-
 export default function ProductCard({ product }: { product: any }) {
   const [productCount, setProductCount] = React.useState(0);
 
@@ -53,12 +43,41 @@ export default function ProductCard({ product }: { product: any }) {
   return (
     <Card
       sx={{
+        position: "relative",
         cursor: "pointer",
         ":hover": {
           boxShadow: "0 0 10px #4A8EB8",
         },
       }}
     >
+      {product.count === 0 && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+            fontSize: "20px",
+          }}
+        >
+          <Box
+            sx={{
+              //
+              backgroundColor: "#10439F",
+              padding: "8px",
+              borderRadius: "8px",
+            }}
+          >
+            Sold Out
+          </Box>
+        </Box>
+      )}
       <FlexColumn>
         <Box
           sx={{
@@ -84,7 +103,7 @@ export default function ProductCard({ product }: { product: any }) {
           >
             <FlexColumn gap={1}>
               {product.colors.slice(0, 3).map((color: number) => (
-                <StyledDot key={color} color={colors[color]} />
+                <StyledDot key={color} color={Colors[color]} />
               ))}
             </FlexColumn>
           </Box>
@@ -99,8 +118,18 @@ export default function ProductCard({ product }: { product: any }) {
           <FlexRow justifyContent="space-between" alignItems="center">
             <p>{product.price}$</p>
             <FlexRow gap={2}>
-              <StyledButton onClick={handleDecrement}>-</StyledButton>
-              <StyledButton onClick={handleIncrement}>+</StyledButton>
+              <StyledButton
+                disabled={product.count === 0}
+                onClick={handleDecrement}
+              >
+                -
+              </StyledButton>
+              <StyledButton
+                disabled={product.count === 0}
+                onClick={handleIncrement}
+              >
+                +
+              </StyledButton>
             </FlexRow>
           </FlexRow>
         </Box>
