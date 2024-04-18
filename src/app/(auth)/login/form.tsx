@@ -53,8 +53,8 @@ const LoginForm: FC = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} mt={2}>
             <TextField
-              name="email"
-              label="Email"
+              name="username"
+              label="Username"
               variant="standard"
               onChange={(e: any) => setForm({ ...form, email: e.target.value })}
               fullWidth
