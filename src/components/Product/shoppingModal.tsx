@@ -1,9 +1,9 @@
 "use client";
 
 import {
+  Box,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -56,14 +56,9 @@ export default function ShoppingModal({
         <DialogTitle>
           <FlexRow justifyContent="space-between">
             <div>Shopping List</div>
-            <div>
-              Total:{" "}
-              {shoppingList.reduce(
-                (acc, item) => acc + item.price * item.shoppingCount,
-                0
-              )}{" "}
-              $
-            </div>
+            <Button onClick={() => setShoppingList([])} color="error">
+              Clear All
+            </Button>
           </FlexRow>
         </DialogTitle>
         <DialogContent>
@@ -116,16 +111,29 @@ export default function ShoppingModal({
             )}
           </FlexColumn>
         </DialogContent>
-        <DialogActions>
-          <FlexRow gap={3}>
+        <FlexRow
+          gap={3}
+          justifyContent="space-between"
+          alignItems="center"
+          padding={2}
+        >
+          <div>
+            Total:{" "}
+            {shoppingList.reduce(
+              (acc, item) => acc + item.price * item.shoppingCount,
+              0
+            )}{" "}
+            $
+          </div>
+          <Box>
             <Button onClick={handleClose} color="error">
               Close
             </Button>
             <LoadingButton loading={loading} onClick={handleSubmmit}>
               Submit
             </LoadingButton>
-          </FlexRow>
-        </DialogActions>
+          </Box>
+        </FlexRow>
       </Dialog>
     </FlexColumn>
   );
