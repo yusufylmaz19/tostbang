@@ -2,5 +2,5 @@
 import "./loading.css";
 
 export default function Loading() {
-  return <h1 className="loading-container">ToastBang</h1>;
+  return <h1 className="loading-container">TostBang</h1>;
 }
